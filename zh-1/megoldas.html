@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Megoldás</title>
+    <script type="application/javascript">
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
+
+</head>
+<body>
+
+<canvas width="500" height="500" id="targetTable" style="border: 1px solid"></canvas>
+
+<script type="application/javascript">
+    const PILLAR_SIZE = 150;
+    const SPACE_BETWEEN_PILLARS = 200;
+    const TABLE_SIZE = 250;
+    const NO_OF_CIRCLES = 5;
+    const FIRST_COLOR = getRandomColor(); // You can use any color however.
+    const SECOND_COLOR = getRandomColor();
+
+    var table = document.getElementById("targetTable");
+    var ctx = table.getContext("2d");
+    var width = table.width;
+    var height = table.height;
+
+    function drawPillar(x) {
+        ctx.beginPath();
+        ctx.moveTo(x, height - PILLAR_SIZE);
+        ctx.lineTo(x, height);
+        ctx.stroke();
+    }
+
+    function drawTable() {
+        ctx.strokeRect((width - TABLE_SIZE) / 2, height - TABLE_SIZE - PILLAR_SIZE, TABLE_SIZE, TABLE_SIZE);
+    }
+
+    function drawCircles() {
+        var x = width / 2;
+        var y = height - 0.5 * TABLE_SIZE - PILLAR_SIZE;
+        var ratio = (TABLE_SIZE / (2 * NO_OF_CIRCLES));
+
+        for (i = NO_OF_CIRCLES; i > 0; i--) {
+            ctx.beginPath();
+            ctx.fillStyle = i % 2 === 0 ? FIRST_COLOR : SECOND_COLOR;
+            ctx.arc(x, y, i * ratio, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    var firstPillarXPos = (width - SPACE_BETWEEN_PILLARS) / 2;
+    drawPillar(firstPillarXPos);
+    drawPillar(firstPillarXPos + SPACE_BETWEEN_PILLARS);
+
+    drawTable();
+    drawCircles();
+
+</script>
+</body>
+</html>
