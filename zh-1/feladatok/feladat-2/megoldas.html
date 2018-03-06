@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Megoldas</title>
+</head>
+<body>
+<canvas width="600px" height="600px" style="border: 1px solid #000" id="myCanvas"></canvas>
+<script type="application/javascript">
+    const myCanvas = document.getElementById("myCanvas");
+    const ctx = myCanvas.getContext("2d");
+    const numberOfLines = 12;
+    const rectangleLength = 400;
+    const WIDTH = myCanvas.width;
+    const HEIGHT = myCanvas.height;
+
+    ctx.strokeStyle = "#000";
+    ctx.lineWidth = 2;
+
+    ctx.strokeRect((WIDTH - rectangleLength) / 2, (HEIGHT - rectangleLength) / 2, rectangleLength, rectangleLength);
+
+    ctx.beginPath();
+    ctx.fillStyle = "#ff0000";
+    ctx.arc(WIDTH / 2, HEIGHT / 2, rectangleLength / 2, 0, 2 * Math.PI);
+    ctx.fill();
+
+    var startPos = (WIDTH - rectangleLength) / 2;
+    var gap = rectangleLength / numberOfLines;
+
+    for (let i = 1; i < numberOfLines; i++) {
+        ctx.beginPath();
+        let linePosition = startPos + gap * i;
+        ctx.moveTo(linePosition, startPos);
+        ctx.lineTo(linePosition, startPos + rectangleLength)
+        ctx.stroke();
+
+        ctx.moveTo(startPos, linePosition);
+        ctx.lineTo(startPos + rectangleLength, linePosition);
+        ctx.stroke();
+    }
+
+
+</script>
+</body>
+</html>
